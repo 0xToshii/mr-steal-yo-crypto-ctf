@@ -4,6 +4,7 @@ pragma solidity ^0.8.4;
 import "./BaseLaunchpegNFT.sol";
 
 
+/// @dev hopegs NFT exchange wrapper to manage mint
 contract FlatLaunchpeg is BaseLaunchpegNFT {
 
     enum Phase {
