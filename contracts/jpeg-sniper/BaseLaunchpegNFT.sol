@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "./LaunchpegErrors.sol";
 
 
+/// @dev base NFT contract
 contract BaseLaunchpegNFT is ERC721, Ownable {
 
     using Counters for Counters.Counter;
