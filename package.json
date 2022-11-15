@@ -7,6 +7,8 @@
   "license": "MIT",
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
+    "@uniswap/v2-core": "1.0.1",
+    "@uniswap/v2-periphery": "1.1.0-beta.0",
     "hardhat": "^2.12.1"
   },
   "devDependencies": {
