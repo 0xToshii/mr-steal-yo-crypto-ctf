@@ -61,7 +61,7 @@ it("solves the challenge", async function () {
 /// expected final state
 after(async () => {
 
-  // admin attempting to withdraw final 50 ETH
+  // admin attempting to withdraw final 50 ETH - should revert
   await expect(admin.sendTransaction({to:safuWallet.address, data:functionInput})).to.be.reverted
 
 });
