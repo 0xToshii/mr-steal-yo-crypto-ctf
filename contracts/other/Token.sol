@@ -21,9 +21,14 @@ contract Token is ERC20, Ownable {
         address[] calldata users, 
         uint256[] calldata amounts
     ) external onlyOwner {
-        for (uint256 i; i<users.length; i++) {
-            _mint(users[i],amounts[i]);
+        for (uint256 i; i<users.length; ++i) {
+            _mint(users[i], amounts[i]);
         }
+    }
+
+    /// @dev mints specified amount for user
+    function mint(address user, uint256 amount) external onlyOwner {
+        _mint(user, amount);
     }
 
 }
