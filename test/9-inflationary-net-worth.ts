@@ -85,6 +85,7 @@ after(async () => {
 
   // attacker drains all farm emissions up to this block
   let endBlock = (await ethers.provider.getBlock('latest')).number
+  expect(await muny.balanceOf(await attacker.getAddress())).to.be.gt(0)
   expect(await muny.balanceOf(await attacker.getAddress())).to.be.equal(
     precision.mul(1).mul(endBlock-startBlock) // all rewards issued from startBlock - endBlock
   )
