@@ -8,4 +8,6 @@ Created by [@0xToshii](https://twitter.com/0xToshii)
 
 Visit [mrstealyocrypto.xyz](https://mrstealyocrypto.xyz)
 
+Primer & Hints: [degenjungle.substack.com/p/mr-steal-yo-crypto-wargame](https://degenjungle.substack.com/p/mr-steal-yo-crypto-wargame)
+
 Note: main branch includes solutions, run <code>git checkout implement</code> to see problems without their respective solutions
