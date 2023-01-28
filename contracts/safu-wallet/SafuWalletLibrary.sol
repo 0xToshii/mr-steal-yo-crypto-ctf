@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.4.9;
+pragma solidity = 0.4.11;
 
 
 /// @dev this is the logic contract
