@@ -57,10 +57,6 @@ describe("Token Test", () => {
     const ownerBalance = await farm.balanceOf(ownerAddress);
     console.log( await `Contract owner at ${ownerAddress} has a ${symbol} balance of ${ethers.utils.formatUnits(ownerBalance, decimals)}\n`);
 
-
-
-    console.log("hello")
-    
     await farmT.connect(admin).transfer(await adminUser.getAddress(), precision.mul(10_000) )
     await farmT.connect(admin).transfer(await attacker.getAddress(), precision.mul(1) )
 
