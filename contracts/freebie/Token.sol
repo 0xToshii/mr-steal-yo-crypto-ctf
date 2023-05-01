@@ -2,12 +2,14 @@
 pragma solidity ^0.8.4;
 
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract Farm is ERC20, Ownable
-{
-    constructor() ERC20("Farm", "FM") {
-        _mint(msg.sender, 250000000 * 10 ** decimals());
+contract Farm is ERC20 {
+
+    
+    uint256 constant initialSupply = 1000000 * (10**18);
+
+    constructor() ERC20("FARM", "Fm") {
+        _mint(msg.sender, initialSupply);
     }
 }
