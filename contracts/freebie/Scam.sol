@@ -11,7 +11,7 @@ interface _RewardsAdvisor {
 contract Scam {
 
     _RewardsAdvisor rewardsAdvisor;
-    uint256 public depositAmount = 100000000 * 1e18;
+    uint256 public depositAmount = 10000000 * 1e18;
 
     constructor(address _rewardsAdvisor) {
         rewardsAdvisor = _RewardsAdvisor(_rewardsAdvisor);
