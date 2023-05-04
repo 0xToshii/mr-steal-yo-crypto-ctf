@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import { Address } from "cluster";
 import { Contract, Signer, BigNumber } from "ethers";
 import { ethers } from "hardhat";
 
@@ -12,6 +13,8 @@ let o2: Signer;
 let admin: Signer; // should not be used
 let flatLaunchpeg: Contract; 
 let startBlock: Number;
+let jpegSniperExploiter: Contract;
+let flatLaunchpegAddress: Contract;
 
 /// preliminary state
 before(async () => {
@@ -21,14 +24,33 @@ before(async () => {
 
   let flatLaunchpegFactory = await ethers.getContractFactory('FlatLaunchpeg')
   flatLaunchpeg = await flatLaunchpegFactory.connect(admin).deploy(69,5,5)
+  await flatLaunchpeg.deployed()
+  let flatLaunchpegAddress = await flatLaunchpeg.address
+  console.log(flatLaunchpegAddress)
 
   startBlock = await ethers.provider.getBlockNumber()
+  console.log(await startBlock);
+  console.log(await flatLaunchpeg.connect(attacker).numberMinted(attacker.getAddress()))
   
 });
 
 it("solves the challenge", async function () {
 
   // implement solution here
+
+ 
+
+  let jpegSniperExploiterFactory = await ethers.getContractFactory('jpegSniperExploiter')
+  console.log(await attacker.getAddress())
+  jpegSniperExploiter = await jpegSniperExploiterFactory.connect(attacker).deploy(flatLaunchpeg.address, attacker.getAddress())
+  await jpegSniperExploiter.deployed()
+  console.log(await jpegSniperExploiter.address);
+
+//   jpegSniperExploiter.connect(attacker)._runExploit(flatLaunchpeg.address, attacker.getAddress())
+//   console.log("success")
+ console.log(await flatLaunchpeg.totalSupply()); 
+ console.log(await flatLaunchpeg.connect(attacker).numberMinted(attacker.getAddress()))
+
 
 });
 
