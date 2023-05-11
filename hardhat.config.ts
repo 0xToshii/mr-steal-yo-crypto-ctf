@@ -1,10 +1,11 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import 'hardhat-watcher'
 
 const config: HardhatUserConfig = {
   networks: {
     hardhat: {
-      allowUnlimitedContractSize: true 
+      allowUnlimitedContractSize: true
     }
   },
   solidity: {
@@ -20,6 +21,13 @@ const config: HardhatUserConfig = {
   },
   mocha: {
     timeout: 300 * 1e3,
+  },
+  watcher: {
+    test: {
+      tasks: [{ command: 'test', params: { testFiles: ['{path}'] } }],
+      files: ['./test/**/*'],
+      verbose: true
+    }
   }
 };
 
