@@ -84,16 +84,8 @@ for (let i = 0; i < alladdress.length; i++) {
 }
 
 
-
-
-
-
-
 /***************check balance of the attacker******************8 */
 console.log("balance of attacker",await flatnft.balanceOf(attacker.address))
-
-
-
 
 }
 

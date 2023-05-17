@@ -72,6 +72,6 @@ after(async () => {
 
   expect(await flatLaunchpeg.totalSupply()).to.be.equal(69)
   expect(await flatLaunchpeg.balanceOf(await attacker.getAddress())).to.be.equal(69)
-  expect(await ethers.provider.getBlockNumber()).to.be.equal(startBlock+1)
+  expect(await ethers.provider.getBlockNumber()).to.be.equal(startBlock.valueOf()+1)
   
 });

