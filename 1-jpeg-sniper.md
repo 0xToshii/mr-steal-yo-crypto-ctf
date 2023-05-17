@@ -44,16 +44,18 @@ extcodesize(contract) will be greater than zero because it contains code
 while
 extcodesize(EOA) will always return 0 because there is no code in it.
 
-so, is size > 0 it will revert. which basically is if it's a contract revert. but the bug here is a contract that has been self-destruct will return 0 and the code size will be 0, but there is possibility for code to be deployed to the same address. I once read an article on that when i was researching on create2. the articles talks about it and it reference a github repo which i cloned. you can check it out [here] (https://github.com/Ultra-Tech-code/metamorphic).
+so, is size > 0 it will revert. which basically is if it's a contract revert. but the bug here is a contract that has been self-destruct will return 0 and the code size will be 0, but there is possibility for code to be deployed to the same address. I once read an article on that when i was researching on create2. the articles talks about it and it reference a github repo which i cloned. you can check it out [here ](https://github.com/Ultra-Tech-code/metamorphic).
 
 another hack. the extcodesize of a contract during deployment is zero until it's succesfully created. When i  makes a call to the `publicSaleMint` function in the `FlatLaunchpeg` in the constructor. the check fails because the contract does not have source code during construction and `extcodesize(sender)` is zero because it's not yet created.
 
 
 ### How i implement my hacks. 
 
-i Created an attacker  contract that has an attack function. The attack function takes in the address of the attacker and other necessary parameter. i used create2 to create contract that mint the nft and push the address to an array.
+I Created an attacker  contract that has an attack function. The attack function takes in the address of the attacker and other necessary parameter. I used create2 to create contract that mint the nft and push the address to an array.
 
-In the constructor of `Attacker` contract the `attack` function is called.  The `attack` function create another contract `mint`. In the `mint` constuctor  the `FlatLaunchpeg` `publicSaleMint` function is called, so the `extcodesize(sender)` checks fails and the attacker was able to mint nft. and i also called the `setApprovalForAll` function passing the address of the attacker so that the attacker can transfer the nft after all the nft have been minted succsefully.
+In the constructor of `Attacker` contract the `attack` function is called.  The `attack` function create another contract `Mint`. In the `Mint` constuctor  the `FlatLaunchpeg` Contract `publicSaleMint` function is called, so the `extcodesize(sender)` checks fails and the attacker was able to mint nft. and i also called the `setApprovalForAll` function passing the address of the attacker so that the attacker can transfer the nft after all the nft have been minted succsefully.
+
+I did some calculation to determine the lenght of the `Mint` contract to be deployed and the amount of nft to be minted by each contract.
 
 check the `deploy.ts` file in the scripts folder.
 
@@ -63,7 +65,7 @@ use `require(tx.origin == msg.sender);` to check for only EOA, because `tx.origi
 
 or 
 We can use a whitelising method whereby all the addresses that will be minting would have been whitelisted.
-here is an [example] (https://github.com/Ultra-Tech-code/ERC20-Token-Airdrop-With-merkleTree)
+here is an [example ](https://github.com/Ultra-Tech-code/ERC20-Token-Airdrop-With-merkleTree)
 
 There is no check for the `quantity`,  so a user can passed in 0. - put a check  there
 The `_refundIfOver(total);` function should have been called before  `_mintForUser(msg.sender, _quantity);`
